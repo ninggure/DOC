@@ -13,6 +13,7 @@
 
 ## Redux的概念
 -   action
+
     顾名思义，action就是动作，也就是通过动作来修改state的值。也是修改store的唯一途径。
     action本质上就是一个普通js对象，我们约定这个对象必须有一个字段type，来表示我们的动作名称。一般我们会使用一个常量来表示type对应的值。
     此外，我们还会把希望state变成什么样子的对应的值通过action传进来，那么这里action可能会类似这样子的：
@@ -24,12 +25,14 @@
     ```
 
 -   Reducer
+
     Action 只是描述了有事情发生了这件事实，但并没有说明要做哪些改变，这正是reducer需要做的事情。
     Reducer作为纯函数，内部不建议使用任何有副作用的操作，比如操作外部的变量，任何导致相同输入但输出却不一致的操作。
     如果我们的reducer比较多，比较复杂，我们不能把所有的逻辑都放到一个reducer里面去处理，这个时候我们就需要拆分reducer。
     幸好，redux提供了一个api就是combineReducers Api。
 
 - dispatcher
+
     store.dispatch()是 View 发出 Action 的唯一方法。
     ```
         import { createStore } from 'redux';
