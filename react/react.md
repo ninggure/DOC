@@ -96,5 +96,3 @@ React大体包含下面概念:
 ### 销毁期
 -   componentWillUnmount
     组件被销毁时调用
-
-## React的使用
