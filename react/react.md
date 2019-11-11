@@ -96,3 +96,290 @@ React大体包含下面概念:
 ### 销毁期
 -   componentWillUnmount
     组件被销毁时调用
+
+## React的使用
+### 元素渲染
+-   根节点渲染
+    ```
+        import ReactDOM from "react-dom";
+        const element = <h1>xxxx</h1>;
+        ReactDOM.render(element, document.getElementById('example'));
+    ```
+-   普通节点渲染
+    ```
+        // 方法
+        function tick(){
+            return <div>xxxx</div>
+        }
+        //类
+        import React, {Component} from "react";
+        class Tick extends Component{
+            render(){
+                return <div>xxx</div>;
+            }
+        }
+    ```
+
+### 组件
+-   方法写法
+    ```
+        function HelloMessage(props){
+            return <h1>Hello World!</h1>;
+        }
+    ```
+-   类写法
+    ```
+        import React, {Component} from "react";
+        class Welcome extends React.Component{
+            render(){
+                return <h1>Hello World!</h1>;
+            }
+        }
+    ```
+
+### 复合组件
+我们可以通过创建多个组件来合成一个组件，即把组件的不同功能点进行分离。
+    ```
+        function Name(props) {
+            return <h1>网站名称：{props.name}</h1>;
+        }
+        function Url(props) {
+            return <h1>网站地址：{props.url}</h1>;
+        }
+        function Nickname(props) {
+            return <h1>网站小名：{props.nickname}</h1>;
+        }
+        function App() {
+            return (
+            <div>
+                <Name name="菜鸟教程" />
+                <Url url="http://www.runoob.com" />
+                <Nickname nickname="Runoob" />
+            </div>
+            );
+        }
+    ```
+
+### 属性和状态
+-   状态
+    React 把组件看成是一个状态机（State Machines）。通过与用户的交互，实现不同状态，然后渲染 UI，让用户界面和数据保持一致。
+    React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
+    ```
+        class Clock extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {date: new Date()};
+            }
+ 
+            render() {
+                return (
+                <div>
+                    <h1>Hello, world!</h1>
+                    <h2>现在是 {this.state.date.toLocaleTimeString()}.</h2>
+                </div>
+                );
+            }
+        }
+        //初始化
+        //在构建函数中使用
+        this.state = {
+            a: 1
+        };
+
+        //修改state
+        //state不能直接修改
+        this.setState({
+            a: 2
+        });
+
+        //取值
+        this.state.a
+    ```
+
+-   属性
+    ```
+        // 方法写法
+        function HelloMessage(props) {
+            return <h1>Hello {props.name}!</h1>;
+        }  
+        
+        //类写法
+        class HelloMessage extends Components{
+            constuctor(props){
+                super(props)
+            }
+            render(){
+                return <h1>Hello {props.name}!</h1>;
+            }
+        }
+
+        // 调用
+        <HelloMessage name="xxxx"/>
+
+        //默认props
+        class HelloMessage extends React.Component {
+            constuctor(props){
+                super(props);
+                this.props = {
+                    name: "xxx"
+                };
+            }
+            render() {
+                return (
+                    <h1>Hello, {this.props.name}</h1>
+                );
+            }
+        }
+    ```
+
+-   属性验证
+    15.5版本以后，已经从React.PropTypes移到prop-types库
+    ```
+        class MyTitle extends React.Component {
+            render() {
+                return (
+                    <h1>Hello, {this.props.title}</h1>
+                );
+            }
+        }
+        MyTitle.propTypes = {
+            title: PropTypes.string
+        };
+    ```
+    15.4
+    ```
+        MyTitle.propTypes = {
+            title: React.PropTypes.string
+        };
+    ```
+
+### 事件处理
+-   写法
+    ```
+        <button onClick={activateLasers}>
+            激活按钮
+        </button>
+    ```
+    方法写法
+    ```
+        function ActionLink() {
+            function handleClick(e) {
+                e.preventDefault();
+                console.log('链接被点击');
+            }
+    
+            return (
+                <a href="#" onClick={handleClick}>
+                点我
+                </a>
+            );
+        }
+    ```
+    类写法
+    ```
+        class Toggle extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {isToggleOn: true};
+            }
+ 
+            handleClick = () => {
+                this.setState(prevState => ({
+                isToggleOn: !prevState.isToggleOn
+                }));
+            };
+ 
+            render() {
+                return (
+                <button onClick={this.handleClick}>
+                    {this.state.isToggleOn ? 'ON' : 'OFF'}
+                </button>
+                );
+            }
+        }
+    ```
+    自定义写法
+    ```
+        // 将方法存在一个对象里面,类似于vue
+        class Toggle extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {isToggleOn: true};
+            }
+
+            methods = {
+                handleClick: ()=>{
+                    this.setState(prevState => ({
+                        isToggleOn: !prevState.isToggleOn
+                    }));
+                },
+            };
+           
+ 
+            render() {
+                return (
+                <button onClick={this.methods.handleClick}>
+                    {this.state.isToggleOn ? 'ON' : 'OFF'}
+                </button>
+                );
+            }
+        }
+    ```
+
+### 条件渲染
+    ```
+        class Test extends Component{
+            constructor(){
+                this.state = {
+                    a: 1
+                };
+            }
+            render(){
+                return <div>{this.state.a?"1":"0"}</div>
+            }
+        }
+    ```
+
+### 列表渲染
+    ```
+        class Test extends Component{
+            constructor(){
+                this.state = {
+                    a: [1, 2, 3]
+                };
+            }
+            render(){
+                return <div>{this.state.a.map(item=>{
+                    return item;
+                })}</div>
+            };
+        }
+
+    ```
+
+### refs
+    ```
+        class MyComponent extends React.Component {
+            handleClick() {
+                //获取到标签对象
+                this.refs.myInput
+                // 使用原生的 DOM API 获取焦点
+                this.refs.myInput.focus();
+                //获取input输入值
+                this.refs.myInput.value;
+            }
+            render() {
+                //  当组件插入到 DOM 后，ref 属性添加一个组件的引用于到 this.refs
+                return (
+                <div>
+                    <input type="text" ref="myInput" />
+                    <input
+                    type="button"
+                    value="点我输入框获取焦点"
+                    onClick={this.handleClick.bind(this)}
+                    />
+                </div>
+                );
+            }
+        }
+    ```
