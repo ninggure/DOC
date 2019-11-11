@@ -149,6 +149,78 @@
         sort()
         reverse()
     ```
+## 表单输入输出
+使用v-model指令与表单元素创建双向数据绑定。
+### 文本
+```
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+```
+### 多行文本
+```
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ message }}</p>
+    <br>
+    <textarea v-model="message" placeholder="add multiple lines">	</textarea>
+```
+###  复选框
+单个复选框，绑定到布尔值
+```
+	<input type="checkbox" id="checkbox" v-model="checked">
+	<label for="checkbox">{{ checked }}</label>
+```
+多个复选框，绑定到同一个数组
+```
+	<div id='example-3'>
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+      <label for="mike">Mike</label>
+      <br>
+      <span>Checked names: {{ checkedNames }}</span>
+    </div>
+```
+### 单选按钮
+```
+	<div id="example-4">
+      <input type="radio" id="one" value="One" v-model="picked">
+      <label for="one">One</label>
+      <br>
+      <input type="radio" id="two" value="Two" v-model="picked">
+      <label for="two">Two</label>
+      <br>
+      <span>Picked: {{ picked }}</span>
+    </div>
+```
+### 选择框
+单选
+```
+	<div id="example-5">
+      <select v-model="selected">
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+    </div>
+```
+多选
+```
+<div id="example-6">
+  <select v-model="selected" multiple style="width: 50px;">
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <br>
+  <span>Selected: {{ selected }}</span>
+</div>
+```
+> 默认选择文本，当设置value时会获取到选中项的value
+
 
 ## 事件处理
 ### 事件处理方法
@@ -312,4 +384,4 @@ HTML 中的特性名是大小写不敏感的，所以浏览器会把所有大写
     eventBus.emit("eventName", path);
 ```
 
-### v-model
+
