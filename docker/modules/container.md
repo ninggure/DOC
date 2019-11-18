@@ -92,3 +92,8 @@
     xxxxx:  镜像名
     xxxxxx: 命令
 ```
+-   查看容器ip
+```
+    docker inspect xxx | grep IPAddress
+    xxx: 容器名
+```
