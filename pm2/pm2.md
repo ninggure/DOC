@@ -15,6 +15,15 @@
 *   -o(--output) <path>: 标准输出日志文件的路径
 *   -e(--error) <path>: 错误输出日志文件的路径
 
+### 启动
+```
+    pm2 start app.js
+    pm2 start npm --name 'next' -- start
+    pm2 start npm --name 'next' -- run start
+```
+
+## 启动指令
+
 ### 重启
 ```
     pm2 restart app.js
