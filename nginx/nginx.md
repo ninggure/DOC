@@ -8,12 +8,7 @@ user nginx;
 worker_processes  1;
 
 # 设置pid存放路径(pid是控制系统中重要文件)
-# pid  logs/nginx.pid
-
-
-# 错误日志目录
-error_log /var/log/nginx/error.log;
-
+# pid logs/nginx.pid
 
 
 # 设置最大连接数
@@ -26,9 +21,7 @@ http {
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
-    # 请求日志目录
-    access_log  /var/log/nginx/access.log  main;
-
+   
     # 提高服务器性能
     sendfile            on;
 
@@ -39,7 +32,7 @@ http {
     # 响应超时时间
     send_timeout        10s
 
-    keepalive_timeout   65;
+    keepalive_timeout   60s;
     # 影响散列表的冲突率:
     # types_hash_max_size越大，就会消耗更多的内存，但散列key的冲突率会降低，检索速度就更快;
     # types_hash_max_size越小，消耗的内存就越小，但散列key的冲突率可能上升。
@@ -52,13 +45,38 @@ http {
     # 用于设置在使用Gzip功能时是否发送带有“Vary：Accept-Encoding”头域的响应头部
     gzip_vary           on;
 
-    include             /etc/nginx/mime.types;
+    include             mime.types;
     default_type        application/octet-stream;
+    # 导入多个server配置
+    include /etc/nginx/conf.d/*.conf;
+    
+    server{
+        listen 80 default_server;
+        return 404;
+    }
+    
+    server{
+        listen       80;
+        server_name  localhost;
+        
+        location /{
+            root  html;
+            index index.html index.htm
+        }
+        
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+    # 后面可配置多个server，可绑定同一个端口
+    server {
+        # 请求日志目录
+        access_log  /var/log/nginx/access.log;
+        # 错误日志目录
+        error_log /var/log/nginx/error.log; 
 
     
-    include /etc/nginx/conf.d/*.conf;
-
-    server {
         listen       80 default_server;
         listen       [::]:80 default_server;
         charset      utf8
