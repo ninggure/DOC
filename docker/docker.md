@@ -29,5 +29,5 @@ Docker 是一个用于开发，交付和运行应用程序的开放平台。Dock
 ## docker的使用
 -   [docker镜像](./modules/image.md)
 -   [docker容器](./modules/container.md)
--   [docker镜像](./modules/hub.md)
+-   [docker仓库](./modules/hub.md)
 
