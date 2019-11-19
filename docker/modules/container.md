@@ -97,3 +97,15 @@
     docker inspect xxx | grep IPAddress
     xxx: 容器名
 ```
+
+## 重新配置容器
+```
+    1.把容器commit成镜像
+    docker commit xxx  xxxx
+    xxx: 容器名
+    xxxx: 镜像名
+    
+    2.可以删除原来的容器，也可以后面再删除
+    
+    3.使用docker run ...重新配置和创建容器
+```
