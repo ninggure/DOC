@@ -55,6 +55,13 @@
     xxxxx: 指令
     如: docker exec -it 1e505154646 ifconfig:查看容器ip地址
 ```
+
+执行多条指令
+```
+    docker exec -it xxx /bin/bash "cd ... && vi ..."
+    xxx: 容器ID或容器名
+    "..": 命令，多条命令用&&隔开
+```
 ## 导出和导入容器
 -   导出容器
 ```
