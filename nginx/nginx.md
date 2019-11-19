@@ -78,5 +78,7 @@ http {
     }
 }
 ```
-## nginx优化
--   内核优化
+## 优化
+-   [内核优化](./modules/Kernel.md)
+-   [nginx优化](./modules/nginx.md)
+-   [gzip](./modules/gzip.md)
