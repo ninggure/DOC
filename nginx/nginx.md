@@ -29,7 +29,7 @@ http {
     # 请求日志目录
     access_log  /var/log/nginx/access.log  main;
 
-    # 提高服务器性能,反向代理的时候关闭
+    # 提高服务器性能
     sendfile            on;
 
     # 开启时数据包不会马上传送，等到数据包最大一次性传输出去，有助于解决网络堵塞
